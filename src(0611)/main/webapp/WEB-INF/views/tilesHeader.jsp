@@ -19,4 +19,5 @@
             <li><a href="/user/profile">프로필</a></li>
         </c:if>
     </ul>
+    
 </header>
