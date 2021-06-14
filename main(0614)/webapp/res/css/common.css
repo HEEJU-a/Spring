@@ -1,0 +1,39 @@
+@charset "UTF-8";
+html, body, ul { margin: 0; padding: 0; }
+header ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	background-color: #333;
+}
+header ul:after{
+	content:'';
+	display: block;
+	clear:both;
+}
+header ul li {
+	float: left;
+}
+header ul li a {
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 14px 16px;
+}
+
+header ul li a:hover:not(.active) {
+	background-color: #111;
+}
+
+section { padding-left: 40px; padding-right: 40px;}
+
+.colorRed { color: red; }
+.displayNone { display: none !important; }
+.fa-kiss-wink-heart {color: red;}
+.pointer {cursor: pointer;}
+.selected{ font-weight : bold; color: #e74c3c;}
+
+a{
+	text-decoration: none;
+	color: black;
+}

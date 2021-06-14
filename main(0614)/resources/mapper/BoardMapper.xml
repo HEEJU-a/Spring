@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.koreait.spring.board.BoardMapper">
+    <select id="selBoardList" resultType="BoardDomain">
+        SELECT A.iboard, A.title, A.iuser, A.regdt
+             , B.unm AS writerNm, B.profileImg
+             , case when C.iboard IS NULL
+               then 0
+               ELSE 1
+            END AS isFav
+        FROM t_board A
+        INNER JOIN t_user B
+        ON A.iuser = B.iuser
+        <if test="selType eq 0">
+            LEFT JOIN t_board_fav C
+        </if>
+        <if test="selType eq 1">
+            INNER JOIN t_board_fav C
+        </if>
+        ON A.iboard = C.iboard
+        AND C.iuser = #{iuser}
+        ORDER BY A.iboard DESC
+        <if test="recordCnt > 0">
+            LIMIT #{startIdx}, #{recordCnt}
+        </if>
+    </select>
+
+    <select id="selMaxPageVal" resultType="_int">
+        SELECT ceil(COUNT(A.iboard)/#{recordCnt}) FROM t_board A
+        <if test="selType eq 1">
+            INNER JOIN t_board_fav C
+            ON A.iboard = C.iboard
+            AND C.iuser = #{iuser}
+        </if>
+    </select>
+
+    <select id="selBoard" resultType="BoardDomain">
+        SELECT A.iboard, A.title, A.ctnt, A.iuser, A.regdt
+             , B.unm AS writerNm, B.profileImg
+        FROM t_board A
+        INNER JOIN t_user B
+        ON A.iuser = B.iuser
+        WHERE A.iboard = #{iboard};
+    </select>
+
+    <insert id="insBoard" useGeneratedKeys="true" keyProperty="iboard">
+        INSERT INTO t_board
+        (title, ctnt, iuser)
+        VALUES
+        (#{title}, #{ctnt}, #{iuser})
+    </insert>
+
+    <update id="updBoard">
+        UPDATE t_board
+        SET title = #{title}, ctnt = #{ctnt}
+        WHERE iboard=#{iboard} AND iuser=#{iuser}
+    </update>
+
+    <delete id="delBoard">
+        DELETE FROM t_board
+        WHERE iboard=#{iboard} AND iuser=#{iuser}
+    </delete>
+
+</mapper>
