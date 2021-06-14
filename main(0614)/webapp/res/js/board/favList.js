@@ -6,7 +6,7 @@ function getListAjax(page=1){
         .then(myJson =>{
             console.log(myJson);
             makeView(myJson.list);
-            makePaging(myJson.maxPageVal);
+            makePaging(myJson.maxPageVal, page);
         });
 }
 //페이징 view 만들기
