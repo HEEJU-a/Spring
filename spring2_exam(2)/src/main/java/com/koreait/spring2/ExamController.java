@@ -26,5 +26,6 @@ public class ExamController {
     public String result(SearchDTO param){
         service.saveData(param);
         return "redirect:/result";
+        
     }
 }
