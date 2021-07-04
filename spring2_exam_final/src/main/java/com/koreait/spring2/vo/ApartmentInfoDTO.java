@@ -17,4 +17,5 @@ public class ApartmentInfoDTO {
     private int flr;
     private int location_cd;
     private String local_nm;
+    
 }
